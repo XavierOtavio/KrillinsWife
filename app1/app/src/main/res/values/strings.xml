@@ -1,0 +1,12 @@
+<resources>
+
+    <string name="app_name">Contactos</string>
+    <string name="find_friend">Encontre contactos</string>
+    <string name="no_friend">Sem contactos</string>
+    <string-array name="type_friends">
+        <item>Copos</item>
+        <item>Bola</item>
+        <item>Trabalho</item>
+
+    </string-array>
+</resources>
