@@ -16,7 +16,7 @@ public class DataBaseTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_base_test);
+        setContentView(R.layout.activity_db_register);
 
         btnCreate = (Button) findViewById(R.id.btnCreate);
         username = (TextView) findViewById(R.id.username);
