@@ -26,18 +26,18 @@ public class DataBaseTestActivity extends AppCompatActivity {
            @Override
            public void onClick(View view) {
 
-               Person person;
+               User user;
 
                 try {
-                    person = new Person( -1, username.getText().toString(), password.getText().toString());
-                    Toast.makeText(getApplicationContext(), person.toString(), Toast.LENGTH_SHORT).show();
+                    user = new User( -1, username.getText().toString(), password.getText().toString());
+                    Toast.makeText(getApplicationContext(), user.toString(), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
-                    person = new Person( -1, "error", "error");
-                    Toast.makeText(getApplicationContext(), "Error creating person", Toast.LENGTH_SHORT).show();
+                    user = new User( -1, "error", "error");
+                    Toast.makeText(getApplicationContext(), "Error creating user", Toast.LENGTH_SHORT).show();
                 }
 
                DataBaseHelper dataBaseHelper = new DataBaseHelper(DataBaseTestActivity.this);
-               boolean success = dataBaseHelper.addOne(person);
+               boolean success = dataBaseHelper.addOne(user);
                 Toast.makeText(getApplicationContext(), "Success = " + success, Toast.LENGTH_SHORT).show();
            }
        });
