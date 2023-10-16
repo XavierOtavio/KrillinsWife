@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Krillin\'s Wife</string>
+    <string name="Welcome">Welcome to Krillin\'s Wife</string>
     <string name="CreateAccount">New? Create a new account</string>
     <string name="SignIn">Sign In</string>
     <string name="Register">Register</string>
-    <string name="Next">&lt;</string>
+    <string name="Back">&lt;</string>
 </resources>

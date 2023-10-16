@@ -4,28 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".DataBaseTestActivity">
+    tools:context=".activity_db_login">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginVertical="48dp"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
->
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="24sp"
-                android:text="@string/Back"
-                android:textColor="@color/white" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,22 +30,12 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="32dp"
                     android:layout_weight="1"
-                    android:text="Create Account"
+                    android:text="@string/Welcome"
                     android:textColor="@color/white"
                     android:textSize="32sp"
                     android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:hint="Name"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/white" />
 
                 <EditText
                     android:id="@+id/username"
@@ -76,7 +52,7 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="32dp"
                     android:layout_weight="1"
                     android:hint="Password"
                     android:inputType="textPassword"
@@ -87,7 +63,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorSecondary"
-                    android:text="@string/Register" />
+                    android:text="@string/SignIn" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/CreateAccount"
+                    android:textColor="@color/white" />
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
