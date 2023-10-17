@@ -2,11 +2,14 @@ package com.example.krillinswife;
 
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.ContentValues;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String USER_TABLE = "USER_TABLE";
@@ -43,5 +46,34 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }else{
             return true;
         }
+    }
+
+    public ArrayList<User> readUsers()
+    {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorCourses
+                = db.rawQuery("SELECT * FROM " + USER_TABLE, null);
+
+        // on below line we are creating a new array list.
+        ArrayList<User> courseModalArrayList
+                = new ArrayList<>();
+
+        // moving our cursor to first position.
+        if (cursorCourses.moveToFirst()) {
+            do {
+                // on below line we are adding the data from
+                // cursor to our array list.
+                courseModalArrayList.add(new User(
+                        cursorCourses.getInt(0),
+                        cursorCourses.getString(1),
+                        cursorCourses.getString(2)));
+            } while (cursorCourses.moveToNext());
+
+        }
+        // at last closing our cursor
+        // and returning our array list.
+        cursorCourses.close();
+        return courseModalArrayList;
     }
 }
