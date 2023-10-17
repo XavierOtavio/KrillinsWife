@@ -5,4 +5,8 @@
     <string name="SignIn">Sign In</string>
     <string name="Register">Register</string>
     <string name="Back">&lt;</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="create_account_title">Create Account</string>
+    <string name="name">Name</string>
 </resources>

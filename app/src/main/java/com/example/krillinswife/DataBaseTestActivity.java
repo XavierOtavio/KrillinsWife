@@ -46,10 +46,14 @@ public class DataBaseTestActivity extends AppCompatActivity {
         btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Navigate to the activity_view_user activity to view the data
                 Intent intent = new Intent(DataBaseTestActivity.this, activity_view_user.class);
                 startActivity(intent);
             }
         });
+    }
+
+    public void goToLogin(View view) {
+        Intent intent = new Intent(this, activity_db_login.class);
+        startActivity(intent);
     }
 }

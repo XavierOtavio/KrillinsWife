@@ -43,7 +43,7 @@
                     android:layout_height="0dp"
                     android:layout_marginBottom="8dp"
                     android:layout_weight="1"
-                    android:hint="Username"
+                    android:hint="@string/username"
                     android:inputType="textPersonName"
                     android:textColor="@color/white" />
 
@@ -54,7 +54,7 @@
                     android:layout_height="0dp"
                     android:layout_marginBottom="32dp"
                     android:layout_weight="1"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:textColor="@color/white" />
 
@@ -70,6 +70,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:onClick="goToRegister"
                     android:text="@string/CreateAccount"
                     android:textColor="@color/white" />
 
