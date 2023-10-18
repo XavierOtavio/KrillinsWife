@@ -9,4 +9,5 @@
     <string name="password">Password</string>
     <string name="create_account_title">Create Account</string>
     <string name="name">Name</string>
+    <string name="logout">Logout</string>
 </resources>
