@@ -53,8 +53,7 @@ public class DataBaseTestActivity extends AppCompatActivity {
         });
     }
 
-    public void goToLogin(View view) {
-        Intent intent = new Intent(this, activity_db_login.class);
-        startActivity(intent);
+    public void backToLogin(View view) {
+        finish();
     }
 }
