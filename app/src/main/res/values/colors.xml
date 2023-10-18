@@ -5,4 +5,5 @@
     <color name="colorPrimary">#F4A261</color>
     <color name="colorSecondary">#E9C46A</color>
     <color name="colorSecondaryDark">#FFC107</color>
+    <color name="redTheme">#E76F51</color>
 </resources>

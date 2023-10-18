@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zerobranch.layout.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_layout3"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:layout_weight="1"
+    app:draggedItem="@id/drag_item"
+    app:leftItem="@id/left_view"
+    app:rightItem="@id/right_view"
+    app:swipeDirection="left|right">
+
+    <ImageView
+        android:id="@+id/right_view"
+        android:layout_width="90dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@color/redTheme"
+        android:gravity="center"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:src="@drawable/ic_delete" />
+
+    <ImageView
+        android:id="@+id/left_view"
+        android:layout_width="90dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorSecondaryDark"
+        android:gravity="center"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:src="@drawable/ic_edit" />
+
+
+
+    <LinearLayout
+        android:id="@+id/drag_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/idName"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="10dp"
+            android:textStyle="bold"
+            android:text="Name"
+            android:textSize="24sp" />
+        <TextView
+            android:id="@+id/idUsername"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="10dp"
+            android:textStyle="italic"
+            android:text="username"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</com.zerobranch.layout.SwipeLayout>

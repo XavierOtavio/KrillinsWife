@@ -67,10 +67,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 // on below line we are adding the data from
                 // cursor to our array list.
                 courseModalArrayList.add(new User(
-                        cursorUser.getInt(0),
-                        cursorUser.getString(1),
-                        cursorUser.getString(2),
-                        cursorUser.getString(3)));
+                        cursorUser.getInt(0), // ID
+                        cursorUser.getString(1), // Username
+                        cursorUser.getString(2), // Password
+                        cursorUser.getString(3))); // Name
             } while (cursorUser.moveToNext());
 
         }
