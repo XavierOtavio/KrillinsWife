@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class DataBaseTestActivity extends AppCompatActivity {
 
     Button btnCreate, btnView;
-    TextView username, password;
+    TextView username, password, name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,7 @@ public class DataBaseTestActivity extends AppCompatActivity {
         btnCreate = findViewById(R.id.btnCreate);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
+        name = findViewById(R.id.name);
         btnView = findViewById(R.id.button); // Assuming you have assigned the button ID in your XML layout
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
@@ -30,10 +31,10 @@ public class DataBaseTestActivity extends AppCompatActivity {
                 User user;
 
                 try {
-                    user = new User(-1, username.getText().toString(), password.getText().toString());
+                    user = new User(-1, username.getText().toString(), password.getText().toString(), name.getText().toString());
                     Toast.makeText(getApplicationContext(), user.toString(), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
-                    user = new User(-1, "error", "error");
+                    user = new User(-1, "error", "error", "error");
                     Toast.makeText(getApplicationContext(), "Error creating user", Toast.LENGTH_SHORT).show();
                 }
 

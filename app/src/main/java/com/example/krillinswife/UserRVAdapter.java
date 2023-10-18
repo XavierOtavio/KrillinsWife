@@ -41,6 +41,8 @@ public class UserRVAdapter extends RecyclerView.Adapter<UserRVAdapter.ViewHolder
         User user = UserArrayList.get(position);
         holder.username.setText(user.getUsername());
         holder.password.setText(user.getPassword());
+        holder.name.setText(user.getName());
+
     }
 
     @Override
@@ -52,14 +54,15 @@ public class UserRVAdapter extends RecyclerView.Adapter<UserRVAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         // creating variables for our text views.
-        private TextView username, password;
+        private TextView username, password, name;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // initializing our text views
             username = itemView.findViewById(R.id.idTVUsername);
             password = itemView.findViewById(R.id.idTVPassword);
-            System.out.println(username + " " + password);
+            name = itemView.findViewById(R.id.idTVName);
+            System.out.println(username + " " + password + " " + name);
         }
     }
 }

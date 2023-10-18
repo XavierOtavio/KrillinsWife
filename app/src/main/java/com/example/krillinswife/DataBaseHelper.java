@@ -13,9 +13,11 @@ import java.util.ArrayList;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String USER_TABLE = "USER_TABLE";
+
     public static final String COLUM_USERNAME = "USERNAME";
     public static final String COLUM_PASSWORD = "PASSWORD";
     public static final String COLUM_ID = "ID";
+    public static final String COLUM_NAME = "NAME";
 
     public DataBaseHelper(@Nullable Context context) {
         super(context, "user.db", null, 1);
@@ -23,9 +25,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + USER_TABLE + " (" + COLUM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUM_USERNAME + " TEXT, " + COLUM_PASSWORD + " TEXT)";
+        String createTableStatement = "CREATE TABLE " + USER_TABLE + " (" + COLUM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUM_USERNAME + " TEXT, " + COLUM_PASSWORD + " TEXT, " + COLUM_NAME + " TEXT)";
         db.execSQL(createTableStatement);
-
     }
 
     @Override
@@ -39,6 +40,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         cv.put(COLUM_USERNAME, user.getUsername());
         cv.put(COLUM_PASSWORD, user.getPassword());
+        cv.put(COLUM_NAME, user.getName());
 
         long insert = db.insert(USER_TABLE, null, cv);
         if(insert == -1){
@@ -52,7 +54,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     {
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursorCourses
+        Cursor cursorUser
                 = db.rawQuery("SELECT * FROM " + USER_TABLE, null);
 
         // on below line we are creating a new array list.
@@ -60,20 +62,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 = new ArrayList<>();
 
         // moving our cursor to first position.
-        if (cursorCourses.moveToFirst()) {
+        if (cursorUser.moveToFirst()) {
             do {
                 // on below line we are adding the data from
                 // cursor to our array list.
                 courseModalArrayList.add(new User(
-                        cursorCourses.getInt(0),
-                        cursorCourses.getString(1),
-                        cursorCourses.getString(2)));
-            } while (cursorCourses.moveToNext());
+                        cursorUser.getInt(0),
+                        cursorUser.getString(1),
+                        cursorUser.getString(2),
+                        cursorUser.getString(3)));
+            } while (cursorUser.moveToNext());
 
         }
         // at last closing our cursor
         // and returning our array list.
-        cursorCourses.close();
+        cursorUser.close();
         return courseModalArrayList;
     }
 }

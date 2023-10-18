@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity_view_user">
 
-    <!--recycler view for displaying our courses-->
+    <!--recycler view for displaying our users-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/idRVUser"
         android:layout_width="match_parent"
