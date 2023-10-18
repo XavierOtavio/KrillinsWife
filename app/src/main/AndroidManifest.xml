@@ -13,9 +13,6 @@
         android:theme="@style/Theme.KrillinsWife"
         tools:targetApi="31">
         <activity
-            android:name=".UserRvItemActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity_db_login"
             android:exported="true">
             <intent-filter>
@@ -24,9 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity_view_user"
-            android:exported="false" />
         <activity
             android:name=".DataBaseTestActivity"
             android:exported="true">

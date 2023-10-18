@@ -44,7 +44,6 @@ public class Home extends AppCompatActivity {
     }
 
     public void goToLogin(View view) {
-        Intent intent = new Intent(this, activity_db_login.class);
-        startActivity(intent);
+        finish();
     }
 }
