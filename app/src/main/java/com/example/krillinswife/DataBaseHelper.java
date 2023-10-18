@@ -79,4 +79,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cursorUser.close();
         return courseModalArrayList;
     }
+
+    public boolean deleteOne(User user){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String queryString = "DELETE FROM " + USER_TABLE + " WHERE " + COLUM_ID + " = " + user.getId();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if(cursor.moveToFirst()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

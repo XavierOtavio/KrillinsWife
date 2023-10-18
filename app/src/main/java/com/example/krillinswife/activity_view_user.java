@@ -15,8 +15,8 @@ public class activity_view_user extends AppCompatActivity {
     // dbhandler, adapter and recycler view.
     private ArrayList<User> UserArrayList;
     private DataBaseHelper dbHandler;
-    private UserRVAdapter courseRVAdapter;
-    private RecyclerView coursesRV;
+    private UserRVAdapter userRVAdapter;
+    private RecyclerView usersRV;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -34,14 +34,14 @@ public class activity_view_user extends AppCompatActivity {
         System.out.println(UserArrayList.get(0) + " " + UserArrayList.get(1));
 
         // on below line passing our array list to our adapter class.
-        courseRVAdapter = new UserRVAdapter(UserArrayList, activity_view_user.this);
-        coursesRV = findViewById(R.id.idRVUser);
+        userRVAdapter = new UserRVAdapter(UserArrayList, activity_view_user.this);
+        usersRV = findViewById(R.id.idRVUser);
 
         // setting layout manager for our recycler view.
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity_view_user.this, RecyclerView.VERTICAL, false);
-        coursesRV.setLayoutManager(linearLayoutManager);
+        usersRV.setLayoutManager(linearLayoutManager);
 
         // setting our adapter to recycler view.
-        coursesRV.setAdapter(courseRVAdapter);
+        usersRV.setAdapter(userRVAdapter);
     }
 }

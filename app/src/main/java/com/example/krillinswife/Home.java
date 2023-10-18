@@ -3,6 +3,7 @@ package com.example.krillinswife;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +24,21 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot()); // Set the root view of the binding object
+
+        // Get the username from the intent and display the welcome message
+        String name = getIntent().getStringExtra("name");
+        String welcomeMessage = "Bem vindo, " + name;
+        System.out.println(welcomeMessage);
+
+        // Access the TextView using the binding object
+        TextView textViewWelcome = binding.Hello;
+
+        // Set the text to the TextView
+        textViewWelcome.setText(welcomeMessage);
+
         setContentView(binding.getRoot());
+
         try {
             users = new DataBaseHelper(this).readUsers();
         } catch (Exception e) {
