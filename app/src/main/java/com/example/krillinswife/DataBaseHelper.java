@@ -1,11 +1,11 @@
 package com.example.krillinswife;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.content.ContentValues;
 
 import androidx.annotation.Nullable;
 
@@ -34,7 +34,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addOne(User user){
+    public boolean addOne(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -43,15 +43,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUM_NAME, user.getName());
 
         long insert = db.insert(USER_TABLE, null, cv);
-        if(insert == -1){
-            return false;
-        }else{
-            return true;
-        }
+        return insert != -1;
     }
 
-    public ArrayList<User> readUsers()
-    {
+    public ArrayList<User> readUsers() {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursorUser
@@ -80,17 +75,40 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return courseModalArrayList;
     }
 
-    public boolean deleteOne(User user){
+    public boolean deleteOne(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
+        long delete = db.delete(USER_TABLE, COLUM_ID + " = ?", new String[]{String.valueOf(id)});
+        db.close();
+        return delete != -1;
+    }
 
-        String queryString = "DELETE FROM " + USER_TABLE + " WHERE " + COLUM_ID + " = " + user.getId();
+    public boolean updateOne(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
 
+        cv.put(COLUM_USERNAME, user.getUsername());
+        cv.put(COLUM_PASSWORD, user.getPassword());
+        cv.put(COLUM_NAME, user.getName());
+
+        long update = db.update(USER_TABLE, cv, COLUM_ID + " = ?", new String[]{String.valueOf(user.getId())});
+        db.close();
+        return update != -1;
+    }
+
+    public User findUser(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "SELECT * FROM " + USER_TABLE + " WHERE " + COLUM_ID + " = " + id;
         Cursor cursor = db.rawQuery(queryString, null);
-
-        if(cursor.moveToFirst()){
-            return true;
-        }else{
-            return false;
+        User user = null;
+        if (cursor.moveToFirst()) {
+            int userId = cursor.getInt(0);
+            String username = cursor.getString(1);
+            String password = cursor.getString(2);
+            String name = cursor.getString(3);
+            user = new User(userId, username, password, name);
         }
+        cursor.close();
+        db.close();
+        return user;
     }
 }

@@ -8,13 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class activity_db_login extends AppCompatActivity {
 
     private EditText editTextUsername, editTextPassword;
-    private Button buttonLogin;
     private TextView textViewMessage;
     private SQLiteDatabase database;
 
@@ -23,10 +22,13 @@ public class activity_db_login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_login);
 
-        DataBaseHelper dbHelper = new DataBaseHelper(this);
-        database = dbHelper.getWritableDatabase();
+        try (DataBaseHelper dbHelper = new DataBaseHelper(this)) {
+            database = dbHelper.getWritableDatabase();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        buttonLogin = findViewById(R.id.btnSignin);
+        Button buttonLogin = findViewById(R.id.btnSignin);
         textViewMessage = findViewById(R.id.textViewMessage);
 
         buttonLogin.setOnClickListener(view -> {
@@ -44,15 +46,14 @@ public class activity_db_login extends AppCompatActivity {
 
                 String name = cursor.getString(3);
                 // Login successful, redirect to another activity
-                String welcomeMessage = "Olá " + name;
-                textViewMessage.setText(welcomeMessage);
+//                String welcomeMessage = "Olá " + name;
+//                textViewMessage.setText(welcomeMessage);
                 Intent intent = new Intent(activity_db_login.this, Home.class);
                 intent.putExtra("name", name);
                 startActivity(intent);
-                finish();
             } else {
                 // Login failed, show error message
-                textViewMessage.setText("Invalid username or password");
+                textViewMessage.setText(R.string.invalid_login);
             }
 
             cursor.close();

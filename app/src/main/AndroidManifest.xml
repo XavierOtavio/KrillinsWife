@@ -29,8 +29,10 @@
         <activity
             android:name=".Home"
             android:exported="true">
-
         </activity>
+        <activity
+            android:name=".activity_db_update"
+            android:exported="false"/>
 
     </application>
 

@@ -10,4 +10,7 @@
     <string name="create_account_title">Create Account</string>
     <string name="name">Name</string>
     <string name="logout">Logout</string>
+    <string name="backWord">Back</string>
+    <string name="Update">Save</string>
+    <string name="invalid_login">Invalid username or password</string>
 </resources>

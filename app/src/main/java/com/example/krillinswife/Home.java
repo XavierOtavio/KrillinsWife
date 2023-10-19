@@ -29,7 +29,6 @@ public class Home extends AppCompatActivity {
         // Get the username from the intent and display the welcome message
         String name = getIntent().getStringExtra("name");
         String welcomeMessage = "Bem vindo, " + name;
-        System.out.println(welcomeMessage);
 
         // Access the TextView using the binding object
         TextView textViewWelcome = binding.Hello;
@@ -39,8 +38,8 @@ public class Home extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-        try {
-            users = new DataBaseHelper(this).readUsers();
+        try(DataBaseHelper dataBaseHelper = new DataBaseHelper(Home.this)) {
+            users = dataBaseHelper.readUsers();
         } catch (Exception e) {
             Toast toast = Toast.makeText(getApplicationContext(), "Error reading users", Toast.LENGTH_SHORT);
             toast.show();
@@ -48,17 +47,23 @@ public class Home extends AppCompatActivity {
         }
 
         for (int i = 0; i < users.size(); i++) {
-            listData = new ListData(users.get(i).getName(), users.get(i).getUsername());
+            listData = new ListData(users.get(i).getId(),users.get(i).getName(), users.get(i).getUsername());
             dataArrayList.add(listData);
         }
 
 
-        listAdapter = new ListAdapter(this, dataArrayList);
+        listAdapter = new ListAdapter(this, dataArrayList, this);
         binding.listUsers.setAdapter(listAdapter);
         binding.listUsers.setClickable(true);
     }
 
     public void goToLogin(View view) {
         finish();
+        Intent intent = new Intent(Home.this, activity_db_login.class);
+        startActivity(intent);
+    }
+
+    public String getSessionName() {
+        return getIntent().getStringExtra("name");
     }
 }
