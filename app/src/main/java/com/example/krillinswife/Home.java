@@ -38,23 +38,23 @@ public class Home extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-        try(DataBaseHelper dataBaseHelper = new DataBaseHelper(Home.this)) {
+        try (DataBaseHelper dataBaseHelper = new DataBaseHelper(this)) {
             users = dataBaseHelper.readUsers();
+
+            for (int i = 0; i < users.size(); i++) {
+                listData = new ListData(users.get(i).getId(), users.get(i).getName(), users.get(i).getUsername());
+                dataArrayList.add(listData);
+            }
+
+
+            listAdapter = new ListAdapter(this, dataArrayList, this);
+            binding.listUsers.setAdapter(listAdapter);
+            binding.listUsers.setClickable(true);
         } catch (Exception e) {
             Toast toast = Toast.makeText(getApplicationContext(), "Error reading users", Toast.LENGTH_SHORT);
             toast.show();
             users.add(new User(-1, "error", "error", "error"));
         }
-
-        for (int i = 0; i < users.size(); i++) {
-            listData = new ListData(users.get(i).getId(),users.get(i).getName(), users.get(i).getUsername());
-            dataArrayList.add(listData);
-        }
-
-
-        listAdapter = new ListAdapter(this, dataArrayList, this);
-        binding.listUsers.setAdapter(listAdapter);
-        binding.listUsers.setClickable(true);
     }
 
     public void goToLogin(View view) {

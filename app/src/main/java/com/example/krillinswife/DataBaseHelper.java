@@ -71,14 +71,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
         // at last closing our cursor
         // and returning our array list.
-        cursorUser.close();
         return courseModalArrayList;
     }
 
     public boolean deleteOne(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         long delete = db.delete(USER_TABLE, COLUM_ID + " = ?", new String[]{String.valueOf(id)});
-        db.close();
         return delete != -1;
     }
 
@@ -91,7 +89,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUM_NAME, user.getName());
 
         long update = db.update(USER_TABLE, cv, COLUM_ID + " = ?", new String[]{String.valueOf(user.getId())});
-        db.close();
         return update != -1;
     }
 
@@ -107,8 +104,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             String name = cursor.getString(3);
             user = new User(userId, username, password, name);
         }
-        cursor.close();
-        db.close();
+        return user;
+    }
+
+    public User checkUser(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "SELECT * FROM " + USER_TABLE + " WHERE " + COLUM_USERNAME + " = '" + username + "' AND " + COLUM_PASSWORD + " = '" + password + "'";
+        Cursor cursor = db.rawQuery(queryString, null);
+        User user = null;
+        if (cursor.moveToFirst()) {
+            int userId = cursor.getInt(0);
+            String name = cursor.getString(3);
+            user = new User(userId, username, password, name);
+        }
         return user;
     }
 }

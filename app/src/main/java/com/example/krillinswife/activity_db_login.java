@@ -24,42 +24,34 @@ public class activity_db_login extends AppCompatActivity {
 
         try (DataBaseHelper dbHelper = new DataBaseHelper(this)) {
             database = dbHelper.getWritableDatabase();
+
+
+            Button buttonLogin = findViewById(R.id.btnSignin);
+            textViewMessage = findViewById(R.id.textViewMessage);
+
+            buttonLogin.setOnClickListener(view -> {
+                editTextUsername = findViewById(R.id.username);
+                editTextPassword = findViewById(R.id.password);
+
+                String username = editTextUsername.getText().toString();
+                String password = editTextPassword.getText().toString();
+
+                // Check credentials in the database
+                User user = dbHelper.checkUser(username, password);
+                if (user != null) {
+                    // Login successful, redirect to another activity
+                    Intent intent = new Intent(activity_db_login.this, Home.class);
+                    intent.putExtra("name", user.getName());
+                    startActivity(intent);
+                } else {
+                    // Login failed, show error message
+                    textViewMessage.setText(R.string.invalid_login);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        Button buttonLogin = findViewById(R.id.btnSignin);
-        textViewMessage = findViewById(R.id.textViewMessage);
-
-        buttonLogin.setOnClickListener(view -> {
-            editTextUsername = findViewById(R.id.username);
-            editTextPassword = findViewById(R.id.password);
-
-            String username = editTextUsername.getText().toString();
-            String password = editTextPassword.getText().toString();
-
-            // Check credentials in the database
-            Cursor cursor = database.rawQuery("SELECT * FROM USER_TABLE WHERE username=? AND password=?",
-                    new String[]{username, password});
-
-            if (cursor.moveToFirst()) {
-
-                String name = cursor.getString(3);
-                // Login successful, redirect to another activity
-//                String welcomeMessage = "Olá " + name;
-//                textViewMessage.setText(welcomeMessage);
-                Intent intent = new Intent(activity_db_login.this, Home.class);
-                intent.putExtra("name", name);
-                startActivity(intent);
-            } else {
-                // Login failed, show error message
-                textViewMessage.setText(R.string.invalid_login);
-            }
-
-            cursor.close();
-        });
     }
-
     public void goToRegister(View view) {
         Intent intent = new Intent(this, DataBaseTestActivity.class);
         startActivity(intent);
