@@ -6,6 +6,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import java.security.NoSuchAlgorithmException;
+import java.security.MessageDigest;
 
 import androidx.annotation.Nullable;
 
@@ -107,11 +109,46 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return user;
     }
 
+    //encrypt password using md5
+    public String encryptPassword(String password) {
+
+        /* Plain-text password initialization. */
+        String encryptedpassword = null;
+        try
+        {
+            /* MessageDigest instance for MD5. */
+            MessageDigest m = MessageDigest.getInstance("MD5");
+
+            /* Add plain-text password bytes to digest using MD5 update() method. */
+            m.update(password.getBytes());
+
+            /* Convert the hash value into bytes */
+            byte[] bytes = m.digest();
+
+            /* The bytes array has bytes in decimal form. Converting it into hexadecimal format. */
+            StringBuilder s = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+
+            /* Complete hashed password in hexadecimal format */
+            encryptedpassword = s.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        return encryptedpassword;
+    }
+
+
     public User checkUser(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
         String queryString = "SELECT * FROM " + USER_TABLE + " WHERE " + COLUM_USERNAME + " = '" + username + "' AND " + COLUM_PASSWORD + " = '" + password + "'";
         Cursor cursor = db.rawQuery(queryString, null);
         User user = null;
+
         if (cursor.moveToFirst()) {
             int userId = cursor.getInt(0);
             String name = cursor.getString(3);
@@ -119,4 +156,5 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
         return user;
     }
+
 }

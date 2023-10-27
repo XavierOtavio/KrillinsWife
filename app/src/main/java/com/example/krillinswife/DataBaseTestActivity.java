@@ -23,34 +23,49 @@ public class DataBaseTestActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         name = findViewById(R.id.name);
-        btnView = findViewById(R.id.button); // Assuming you have assigned the button ID in your XML layout
+
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 User user;
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(DataBaseTestActivity.this);
 
-                try {
-                    user = new User(-1, username.getText().toString(), password.getText().toString(), name.getText().toString());
-                    Toast.makeText(getApplicationContext(), user.toString(), Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    user = new User(-1, "error", "error", "error");
-                    Toast.makeText(getApplicationContext(), "Error creating user", Toast.LENGTH_SHORT).show();
+                ArrayList<User> users = dataBaseHelper.readUsers();
+                boolean userExists = false;
+                for (User u : users) {
+                    if (u.getUsername().equals(username.getText().toString())) {
+                        userExists = true;
+                        break;
+                    }
                 }
 
-                DataBaseHelper dataBaseHelper = new DataBaseHelper(DataBaseTestActivity.this);
-                boolean success = dataBaseHelper.addOne(user);
-                Toast.makeText(getApplicationContext(), "Success = " + success, Toast.LENGTH_SHORT).show();
+                if (userExists) {
+                    Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+
+                        String encryptedPassword = dataBaseHelper.encryptPassword(password.getText().toString());
+
+                        user = new User(-1, username.getText().toString(), encryptedPassword, name.getText().toString());
+                        Toast.makeText(getApplicationContext(), user.toString(), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        user = new User(-1, "error", "error", "error");
+                        Toast.makeText(getApplicationContext(), "Error creating user", Toast.LENGTH_SHORT).show();
+                    }
+
+                    boolean success = dataBaseHelper.addOne(user);
+                    Toast.makeText(getApplicationContext(), "Success = " + success, Toast.LENGTH_SHORT).show();
+
+                    if (success){
+                        Intent intent = new Intent(getApplicationContext(), activity_db_login.class);
+                        startActivity(intent);
+                    }
+                }
+
             }
         });
 
-        btnView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DataBaseTestActivity.this, Home.class);
-                startActivity(intent);
-            }
-        });
     }
 
     public void backToLogin(View view) {

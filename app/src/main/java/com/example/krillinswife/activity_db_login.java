@@ -37,7 +37,8 @@ public class activity_db_login extends AppCompatActivity {
                 String password = editTextPassword.getText().toString();
 
                 // Check credentials in the database
-                User user = dbHelper.checkUser(username, password);
+                String encryptedPassword = dbHelper.encryptPassword(password);
+                User user = dbHelper.checkUser(username, encryptedPassword);
                 if (user != null) {
                     // Login successful, redirect to another activity
                     Intent intent = new Intent(activity_db_login.this, Home.class);
